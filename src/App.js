@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import Header from "./component/Header/index.jsx";
+import Container from "./component/Container/index.jsx";
+import Home from "./component/Home/index.jsx";
+import Devs from "./component/Devs/index.jsx";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [search, setSearch] = useState("");
+  const [openAddDevs, setAddDevs] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Router>
+        <Header setSearch={setSearch} setAddDevs={setAddDevs} />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route
+            exact
+            path="/devs"
+            element={
+              <Devs
+                search={search}
+                openAddDevs={openAddDevs}
+                setAddDevs={setAddDevs}
+              />
+            }
+          />
+        </Routes>
+      </Router>
+    </Container>
   );
 }
 
